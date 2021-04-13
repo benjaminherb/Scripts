@@ -1,0 +1,40 @@
+#!/bin/bash
+
+## Was?
+
+echo "Backup: All (0) / Documents, Design, Music, Sonstiges, Downloads (1) / Fotos (2) / Video (3) / Projektdisk (4)"
+read -e backup
+
+## rsync Dokumente Fotos Design Musik Videos
+
+if [ $backup == "0" ]; then
+    rsync -avh /mnt/Daten/Design/ /run/media/benny/Backup/Design/
+    rsync -avh /mnt/Daten/Documents/ /run/media/benny/Backup/Documents/
+    rsync -avh /mnt/Daten/Fotos/ /run/media/benny/Backup/Pictures/
+    rsync -avh /mnt/Daten/Dateien/ /run/media/benny/Backup/Dateien/
+    rsync -avh /mnt/Daten/Musik/ /run/media/benny/Backup/Music/
+    rsync -avh /mnt/Daten/Video/ /run/media/benny/Backup/Video/
+    rsync -avh /mnt/Daten/Downloads/ /run/media/benny/Backup/Downloads/
+fi
+
+if [[ $backup == *"1"* ]]; then
+    rsync -avh /mnt/Daten/Design/ /run/media/benny/Backup/Design/
+    rsync -avh /mnt/Daten/Documents/ /run/media/benny/Backup/Documents/
+    rsync -avh /mnt/Daten/Download/ /run/media/benny/Backup/Downloads/
+    rsync -avh /mnt/Daten/Musik/ /run/media/benny/Backup/Music/
+    rsync -avh /mnt/Daten/Dateien/ /run/media/benny/Backup/Dateien/
+fi
+
+if [[ $backup == *"2"* ]]; then
+    rsync -avh /mnt/Daten/Fotos/ /run/media/benny/Backup/Pictures/
+fi
+
+if [[ $backup == *"3"* ]]; then
+    rsync -avh /mnt/Daten/Video/ /run/media/benny/Backup/Video/
+fi
+
+## Backup "Projekt" without Junk
+
+if [[ $backup == *"4"* ]]; then
+    rsync -avh --exclude Systen\ Volume\ Information/ --exclude \$RECYCLE.BIN --exclude .Trash-1000 /run/media/benny/Projekt/ /run/media/benny/Backup/Projekt/
+fi

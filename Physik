@@ -1,0 +1,22 @@
+#!/bin/bash
+
+## Do it until everything is gone
+
+ls -l ~/Documents/Studium/Vorlesungen/*.pdf >/dev/null 2>&1
+until [ !"$?" = "0" ]; do ## Wait for the Document to appear and move it
+    ls -l ~/Documents/Studium/Vorlesungen/*Physik.pdf >/dev/null 2>&1
+    if [ "$?" = "0" ]; then
+        mv ~/Documents/Studium/Vorlesungen/*Physik.pdf ~/Documents/Studium/Vorlesungen/Physik
+    else
+        echo "no file"
+
+    fi
+
+    ls -l ~/Documents/Studium/Vorlesungen/*Mathe.pdf >/dev/null 2>&1
+    if [ "$?" = "0" ]; then
+        mv ~/Documents/Studium/Vorlesungen/*Mathe.pdf ~/Documents/Studium/Vorlesungen/Mathe
+    else
+        echo "no file"
+
+    fi
+done

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# unmount "Private" folder if already mounted
+
+if [ -d /home/benny/Private ]; then
+    gnome-encfs-manager unmount /home/benny/Private 2>/dev/null
+
+# mount "Private" folder if not mounted and open Files after password
+
+else
+    gnome-encfs-manager mount /home/benny/Private 2>/dev/null
+    until [ -f /home/benny/Private/.sg ]; do
+        sleep 1
+    done
+    nautilus /home/benny/Private &
+    disown
+
+fi

@@ -1,0 +1,76 @@
+#!/bin/bash
+
+## Start
+
+path=/mnt/Backup/
+
+echo
+echo "BORGBACKUP"
+echo
+
+if [ -z "$(ls -a $path)" ]; then
+    echo "Backupplatte konnte nicht gefunden werden! Backup wird abgebrochen"
+    exit 0
+else
+    borg list $path
+    echo
+fi
+
+## Choice
+
+echo "Backup: Daten (0) / Video (1) / Projekt (2) / System (3) / Games (4)"
+read -e backup
+echo
+
+## Backup Drives
+
+syntax=' '
+
+if [[ $backup == *"0"* ]]; then
+    syntax=$syntax' /mnt/Daten/'
+fi
+
+if [[ $backup == *"1"* ]]; then
+    syntax=$syntax' /mnt/Video/'
+fi
+
+if [[ $backup == *"2"* ]]; then
+    syntax=$syntax' /mnt/Projekt/'
+fi
+
+if [[ $backup == *"3"* ]]; then
+    syntax=$syntax' /mnt/Windows/ /home/benny'
+fi
+
+if [[ $backup == *"4"* ]]; then
+    syntax=$syntax' /mnt/Games/'
+fi
+
+## Check
+
+echo FOLLOWING COMMAND WILL BE USED:
+echo borg create --progress $path::$(date +%Y_%m_%d) $syntax
+echo Press enter to continue...
+read -e
+echo
+
+## Execution + Log
+
+startTime=$(date +%s)
+/mnt/Daten/Dokumente/Privat/Dotfiles/telegram -M -t 1369429125:AAHqxnFKjiHv34-Elh4cFAY98LRGH822jcQ -c 668523255 "*Borg Backup Started*"$'\n'"borg create $path::$(date +%Y%m%d) $syntax"
+
+borg create --progress $path::$(date +%Y_%m_%d) $syntax
+
+endTime=$(date +%s) elapsedTime=$(($endTime - $startTime))
+
+((h = $elapsedTime / 3600))
+((m = $elapsedTime % 3600 / 60))
+((s = $elapsedTime % 60))
+
+echo $(date +%Y/%m/%d) "("$h:$m:$s")" borg create --progress $path::$(date +%Y%m%d) $syntax >>/mnt/Daten/Dokumente/Privat/Dotfiles/backuplog
+
+/mnt/Daten/Dokumente/Privat/Dotfiles/telegram -M -t 1369429125:AAHqxnFKjiHv34-Elh4cFAY98LRGH822jcQ -c 668523255 "*Borg Backup Complete* ($h:$m:$s)"$'\n'"borg create $path::$(date +%Y%m%d) $syntax"
+
+## Shutdown
+
+shutdown
