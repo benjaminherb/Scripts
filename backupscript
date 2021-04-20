@@ -1,18 +1,42 @@
 #!/bin/bash
 
-## Start
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+backup_dir=/mnt/Backup/
 
-path=/mnt/Backup/
+token="1369429125:AAHqxnFKjiHv34-Elh4cFAY98LRGH822jcQ"
+chat="668523255"
+
+shutdown="true"
+
+# Check for noShutdown Commands
+function checkTelegram() {
+
+    while [[ true ]]; do
+        $script_dir/telegram -m | read message_id sender_id chat_id text
+        echo "MessageID: $message_id"
+        echo "Text:      $text"
+        if [[ $text == /noShutdown ]]; then
+            shutdown = false
+            echo "shutdown OFF"
+            $script_dir/telegram -M "Shutdown Turned Off"
+
+        fi
+        sleep 5
+    done
+
+}
+
+## Start
 
 echo
 echo "BORGBACKUP"
 echo
 
-if [ -z "$(ls -a $path)" ]; then
+if [ -z "$(ls -a $backup_dir)" ]; then
     echo "Backupplatte konnte nicht gefunden werden! Backup wird abgebrochen"
     exit 0
 else
-    borg list $path
+    borg list $backup_dir
     echo
 fi
 
@@ -49,7 +73,7 @@ fi
 ## Check
 
 echo FOLLOWING COMMAND WILL BE USED:
-echo borg create --progress $path::$(date +%Y_%m_%d) $syntax
+echo borg create --progress $backup_dir::$(date +%Y_%m_%d) $syntax
 echo Press enter to continue...
 read -e
 echo
@@ -57,9 +81,9 @@ echo
 ## Execution + Log
 
 startTime=$(date +%s)
-/mnt/Daten/Dokumente/Privat/Dotfiles/telegram -M -t 1369429125:AAHqxnFKjiHv34-Elh4cFAY98LRGH822jcQ -c 668523255 "*Borg Backup Started*"$'\n'"borg create $path::$(date +%Y%m%d) $syntax"
+$script_dir/telegram -M "*Borg Backup Started*"$'\n'"borg create $backup_dir::$(date +%Y%m%d) $syntax"$'\n' "Send \noShutdown to cancel auto shutdown after backup completion"
 
-borg create --progress $path::$(date +%Y_%m_%d) $syntax
+# borg create --progress $backup_dir::$(date +%Y_%m_%d) $syntax
 
 endTime=$(date +%s) elapsedTime=$(($endTime - $startTime))
 
@@ -67,10 +91,12 @@ endTime=$(date +%s) elapsedTime=$(($endTime - $startTime))
 ((m = $elapsedTime % 3600 / 60))
 ((s = $elapsedTime % 60))
 
-echo $(date +%Y/%m/%d) "("$h:$m:$s")" borg create --progress $path::$(date +%Y%m%d) $syntax >>/mnt/Daten/Dokumente/Privat/Dotfiles/backuplog
+echo $(date +%Y/%m/%d) "("$h:$m:$s")" borg create --progress $backup_dir::$(date +%Y%m%d) $syntax >>$script_dir/backuplog
 
-/mnt/Daten/Dokumente/Privat/Dotfiles/telegram -M -t 1369429125:AAHqxnFKjiHv34-Elh4cFAY98LRGH822jcQ -c 668523255 "*Borg Backup Complete* ($h:$m:$s)"$'\n'"borg create $path::$(date +%Y%m%d) $syntax"
+$script_dir/telegram -M "*Borg Backup Complete* ($h:$m:$s)"$'\n'"borg create $backup_dir::$(date +%Y%m%d) $syntax"
 
 ## Shutdown
 
-shutdown
+if [[ shutdown == true ]]; then
+    shutdown
+fi

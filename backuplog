@@ -18,3 +18,22 @@
 2021/03/02 (1:20:28) borg create --progress /mnt/Backup/::20210302 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
 2021/03/08 (1:29:13) borg create --progress /mnt/Backup/::20210308 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
 2021/03/15 (9:2:9) borg create --progress /mnt/Backup/::20210315 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
+2021/04/20 (0:0:1) borg create --progress /mnt/Backup/::20210420
+2021/04/20 (0:0:1) borg create --progress /mnt/Backup/::20210420
+2021/04/20 (0:0:0) borg create --progress /mnt/Backup/::20210420
+2021/04/20 (0:0:1) borg create --progress /mnt/Backup/::20210420
+2021/04/20 (0:0:0) borg create --progress /mnt/Backup/::20210420
+2021/04/20 (0:0:0) borg create --progress /mnt/Backup/::20210420
+2021/04/20 (0:0:0) borg create --progress /mnt/Backup/::20210420
+2021/04/20 (0:0:0) borg create --progress /mnt/Backup/::20210420
+2021/04/20 (0:0:0) borg create --progress /mnt/Backup/::20210420
+2021/04/20 (0:0:0) borg create --progress /mnt/Backup/::20210420
+2021/04/20 (0:0:0) borg create --progress /mnt/Backup/::20210420
+2021/04/20 (0:0:0) borg create --progress /mnt/Backup/::20210420
+2021/04/20 (0:0:0) borg create --progress /mnt/Backup/::20210420
+2021/04/20 (0:0:0) borg create --progress /mnt/Backup/::20210420
+2021/04/20 (0:0:0) borg create --progress /mnt/Backup/::20210420
+2021/04/20 (0:0:0) borg create --progress /mnt/Backup/::20210420
+2021/04/20 (0:0:0) borg create --progress /mnt/Backup/::20210420
+2021/04/20 (0:0:0) borg create --progress /mnt/Backup/::20210420
+2021/04/20 (0:0:0) borg create --progress /mnt/Backup/::20210420
