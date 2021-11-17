@@ -37,3 +37,33 @@
 2021/04/20 (0:0:0) borg create --progress /mnt/Backup/::20210420
 2021/04/20 (0:0:0) borg create --progress /mnt/Backup/::20210420
 2021/04/20 (0:0:0) borg create --progress /mnt/Backup/::20210420
+2021/04/25 (0:0:0) borg create --progress /mnt/Backup/::20210425 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
+2021/04/26 (9:5:46) borg create --progress /mnt/Backup/::20210426 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
+2021/05/03 (9:7:49) borg create --progress /mnt/Backup/::20210503 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
+2021/05/10 (9:55:17) borg create --progress /mnt/Backup/::20210510 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
+2021/05/16 (9:19:47) borg create --progress /mnt/Backup/::20210516 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
+2021/05/26 (10:7:6) borg create --progress /mnt/Backup/::20210526 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
+2021/05/31 (9:33:32) borg create --progress /mnt/Backup/::20210531 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
+2021/06/07 (0:0:0) borg create --progress /mnt/Backup/::20210607 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
+2021/06/07 (9:43:38) borg create --progress /mnt/Backup/::20210607 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
+2021/06/14 (10:14:16) borg create --progress /mnt/Backup/::20210614 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
+2021/06/28 (11:39:48) borg create --progress /mnt/Backup/::20210628 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
+2021/07/05 (10:51:57) borg create --progress /mnt/Backup/::20210705 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
+2021/07/15 (10:34:36) borg create --progress /mnt/Backup/::20210715 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
+2021/07/19 (10:51:11) borg create --progress /mnt/Backup/::20210719 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
+2021/07/26 (11:13:18) borg create --progress /mnt/Backup/::20210726 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
+2021/08/24 (0:0:1) borg create --progress /mnt/Backup/::20210824 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
+2021/08/25 (11:2:33) borg create --progress --list --filter=AME --stats /mnt/Backup/::20210825 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
+2021/08/25 (0:0:5) borg create --progress --list --filter=AME --stats /mnt/Backup/::20210825 /mnt/Daten/
+2021/08/25 (0:0:44) borg create --progress --list --filter=AME --stats /mnt/Backup/::20210825 /mnt/Daten/
+2021/08/25 (0:0:36) borg create --progress --list --filter=AME --stats /mnt/Backup/::20210825 /mnt/Windows/ /home/benny
+2021/08/25 (0:1:38) borg create --progress --list --filter=AME --stats /mnt/Backup/::20210825 /mnt/Video/
+2021/08/25 (0:0:0) borg create --progress --list --filter=AME --stats /mnt/Backup/::20210825 /mnt/Video/
+2021/08/25 (0:0:32) borg create --progress --list --filter=AME --stats /mnt/Backup/::20210825 /mnt/Video/
+2021/08/26 (0:5:44) borg create --progress --list --filter=AME --stats /mnt/Backup/::20210826 /mnt/Video/
+2021/08/26 (0:0:43) borg create --progress --list --filter=AME --stats /mnt/Backup/::20210826 /mnt/Video/
+2021/08/26 (0:34:34) borg create --progress --list --filter=AME --stats --files-cache ctime,size /mnt/Backup/::20210826 /mnt/Video/
+2021/08/26 (0:0:4) borg create --progress --list --filter=AME --stats --files-cache ctime,size /mnt/Backup/::20210826 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
+2021/08/26 (0:35:53) borg create --progress --list --filter=AME --stats --files-cache ctime,size /mnt/Backup/::20210826 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
+2021/08/28 (0:36:47) borg create --progress --list --filter=AME --stats --files-cache ctime,size /mnt/Backup/::20210828 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
+2021/09/05 (0:38:33) borg create --progress --list --filter=AME --stats --files-cache ctime,size /mnt/Backup/::20210905 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
