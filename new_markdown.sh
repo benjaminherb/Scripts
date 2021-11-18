@@ -1,17 +1,20 @@
-#!/bin/bash
+#!/bin/zsh
 
 filename="${HOME}/Notes/$(date +"%Y%m%d_%H%M").md" 
-
+ 
 touch $filename 
 apostrophe $filename
+ 
 
 if [ ! -s $filename ]; then
   rm $filename
-fi
+else
+  echo "FILENAME: $filename"
+  firstline="$(head -n 1 $filename)"
+  echo $firstline
 
-firstline=$(head -n 1 $filename)
-echo $firstline
-if [[ "$firstline" =~ "# " ]]; then
-echo ${firstline:1}
-mv "$filename"
+  if [[ "$firstline" =~ "# " ]]; then
+    fileending="${${firstline// /_}//\#/}"
+    mv "$filename" "${filename:0:-3}${fileending}.md"
+ fi
 fi
