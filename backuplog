@@ -67,3 +67,21 @@
 2021/08/26 (0:35:53) borg create --progress --list --filter=AME --stats --files-cache ctime,size /mnt/Backup/::20210826 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
 2021/08/28 (0:36:47) borg create --progress --list --filter=AME --stats --files-cache ctime,size /mnt/Backup/::20210828 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
 2021/09/05 (0:38:33) borg create --progress --list --filter=AME --stats --files-cache ctime,size /mnt/Backup/::20210905 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
+2021/09/11 (0:0:0)
+2021/09/11 (0:19:11) borg create --progress --stats /mnt/Backup::2021_09_11 /mnt/Daten/
+2021/09/11 (0:0:36) borg create --progress --stats /mnt/Backup::2021_09_11_2 /mnt/Daten/
+2021/09/11 (0:0:4) borg create --progress --stats /mnt/Backup::2021_09_11_2 /mnt/Daten/
+2021/09/11 (0:0:2) borg create --progress --stats /mnt/Backup::2021_09_11_2 /mnt/Daten/
+2021/09/11 (0:0:3) borg create --progress --stats /mnt/Backup::2021_09_11_2 /mnt/Daten/
+2021/09/11 (0:0:4) borg create --progress --stats /mnt/Backup::2021_09_11_2 /mnt/Daten/
+2021/09/11 (0:0:9) borg create --progress --stats /mnt/Backup::2021_09_11_2 /mnt/Daten/
+2021/09/11 (0:0:2) borg create --progress --stats /mnt/Backup::2021_09_11 /mnt/Daten/
+2021/09/11 (0:0:2) borg create --progress --stats /mnt/Backup::2021_09_11 /mnt/Daten/
+2021/09/11 (0:0:2) borg create --progress --stats /mnt/Backup::2021_09_11 /mnt/Daten/
+2021/09/11 (0:0:2) borg create --progress --stats /mnt/Backup::2021_09_11 /mnt/Daten/
+2021/09/13 (9:55:45) borg create --progress --stats /mnt/Backup::2021_09_13 /mnt/Daten/ /mnt/Video/ /mnt/Projekt/ /mnt/Windows/ /home/benny
+2021/09/20 (0:49:27) borg create --progress --stats /mnt/Backup::2021_09_20 /mnt/Daten/ /mnt/Video/ /mnt/Projekt/ /mnt/Windows/ /home/benny
+2021/09/28 (0:36:45) borg create --progress --list --filter=AME --stats --files-cache ctime,size /mnt/Backup/::20210928 /mnt/Daten/ /mnt/Video/ /mnt/Projekt/ /mnt/Windows/ /home/benny
+2021/10/18 (0:36:58) borg create --progress --list --filter=AME --stats --files-cache ctime,size /mnt/Backup/::20211018 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
+2021/10/27 (2:38:9) borg create --progress --list --filter=AME --stats --files-cache ctime,size /mnt/Backup/::20211027 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
+2021/11/15 (9:33:29) borg create --progress --stats /mnt/Backup::2021_11_14 /mnt/Daten/ /mnt/Video/ /mnt/Windows/ /home/benny
