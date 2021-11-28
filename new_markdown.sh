@@ -3,7 +3,7 @@
 filename="${HOME}/Notes/$(date +"%Y%m%d_%H%M").md" 
  
 touch $filename 
-apostrophe $filename
+kitty vim -c 'startinsert' $filename
  
 
 if [ ! -s $filename ]; then
