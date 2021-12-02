@@ -5,7 +5,7 @@ dir=${HOME}/Notes
 filename=$(ls -tR $dir | grep .md | head -n 1)
 echo "Latest File: $filename"
  
-kitty vim "$dir/$filename"
+gnome-terminal --execute gvim -v "$dir/$filename"
 
 
 firstline=$(head -n 1 "$dir/$filename")
