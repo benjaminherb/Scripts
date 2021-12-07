@@ -6,8 +6,6 @@ backup_dir=/mnt/Backup
 token="1369429125:AAHqxnFKjiHv34-Elh4cFAY98LRGH822jcQ"
 chat="668523255"
 
-shutdown="true"
-
 ## Start
 
 echo
@@ -93,7 +91,7 @@ echo $(date +%Y/%m/%d) "("$h:$m:$s")" $command >>$script_dir/backuplog
 $script_dir/telegram -M "*Borg Backup Complete* ($h:$m:$s)"$'\n'"$command"
 
 ## Shutdown
-if [[ shutdown == "y" ]]; then
+if [[ $shutdown == "y" ]]; then
     echo Shutting down in 60s
     sleep 60
     shutdown
