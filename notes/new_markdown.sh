@@ -3,7 +3,7 @@
 filename="${HOME}/Notes/$(date +"%Y%m%d_%H%M").md" 
  
 touch $filename 
-gnome-terminal --execute gvim -vc 'startinsert' $filename
+gnome-terminal --wait -- gvim -vc 'startinsert' $filename
  
 
 if [ ! -s $filename ]; then
