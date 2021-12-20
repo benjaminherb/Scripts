@@ -29,7 +29,7 @@ fi
 
 ## Choice
 
-echo "${BOLD}Choose Backups Directorys:${NORMAL} Daten (0) | Video (1) | Projekt (2) | System (3) | Games (4)"
+echo "${BOLD}Choose Backups Directories:${NORMAL} Daten (0) | Video (1) | Projekt (2) | System (3) | Games (4)"
 read -e backup
 echo
 
