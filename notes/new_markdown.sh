@@ -14,7 +14,7 @@ else
   echo $firstline
 
   if [[ "$firstline" =~ "# " ]]; then
-    fileending="${${firstline// /_}//\#/}"
-    mv "$filename" "${filename:0:-3}${fileending}.md"
+    new_filename="${${${firstline// /_}//\#/}:1}"
+    mv "$filename" "${new_filename}.md"
  fi
 fi

@@ -10,8 +10,8 @@ gnome-terminal --execute gvim -v "$dir/$filename"
 
 firstline=$(head -n 1 "$dir/$filename")
 if [[ "$firstline" =~ "# " ]]; then
-  fileending="${${firstline// /_}//\#/}"
-  mv "$dir/$filename" "$dir/${filename:0:13}${fileending}.md"
+  new_filename="${${${firstline// /_}//\#/}:1}"
+  mv "$dir/$filename" "$dir/${new_filename}.md"
 fi
 
 
