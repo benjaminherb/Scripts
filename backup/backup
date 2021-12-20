@@ -51,7 +51,7 @@ if [[ $backup == *"2"* ]]; then
 fi
 
 if [[ $backup == *"3"* ]]; then
-    syntax=$syntax' /mnt/Windows/ /home/benny'
+    syntax=$syntax' /mnt/Windows/ /home/ben'
 fi
 
 if [[ $backup == *"4"* ]]; then
@@ -86,7 +86,7 @@ echo "-------------------------"
 echo
 startTime=$(date +%s)
 
-$script_dir/telegram -c $chat -t $token -M "*Borg Backup Started*"$'\n'"$command"
+$script_dir/telegram -c $chat -t $token -H  "<b>Borg Backup Started</b>"$'\n'"$command"
 
 $command
 
@@ -104,7 +104,7 @@ info_file="/tmp/$(date +%Y_%m_%d)_backup_info.txt"
 
 borg info "$archive" > "$info_file"
 
-$script_dir/telegram -c $chat -t $token -M "*Borg Backup Complete* ($h:$m:$s)"
+$script_dir/telegram -c $chat -t $token -H "<b>Borg Backup Complete</b> ($h:$m:$s)"
 $script_dir/telegram -c $chat -t $token -f "$info_file"
 
 rm  "$info_file"
