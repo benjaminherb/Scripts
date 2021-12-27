@@ -15,6 +15,6 @@ else
 
   if [[ "$firstline" =~ "# " ]]; then
     new_filename="${${${firstline// /_}//\#/}:1}"
-    mv "$filename" "${new_filename}.md"
+    mv "$filename" "$HOME}/Notes/${new_filename}.md"
  fi
 fi
