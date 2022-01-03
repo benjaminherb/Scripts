@@ -13,7 +13,7 @@ def main():
 
     for d in data:
         ts = d.get('ts')
-        if ("2021" in ts) or ("2020" in ts) or ("2019" in ts) or ("2018" in ts):
+        if ("2021" in ts) or ("2021" in ts) or ("2020" in ts) or ("2021" in ts):
             artist_name = d.get('master_metadata_album_artist_name')
             
             if not artist_name == None:
