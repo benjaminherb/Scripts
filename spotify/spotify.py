@@ -1,13 +1,6 @@
 import json
 
 
-def parse_date(ts):
-        year,month,day = ts.split("-")
-        time = day.split("T")[1].replace('Z', '', 1)
-        day = day.split("T")[0]
-        hh,mm,ss = time.split(":")
-        return int(year), int(month), int(day), int(hh), int(mm), int(ss)
-
 def main():
     
     data = []
@@ -16,32 +9,62 @@ def main():
         with open('data/endsong_' + str(i) + '.json') as f:
             data += json.load(f)
 
+    print_playtime_month(data, 2018, 2)
+    print_artist_playstats_since(data, 2018, 2, 1, 50)
+
+
+def print_playtime_month(data, start_year, start_month):
+    months = {}
+    for d in data:
+
+        year,month,day,hh,mm,ss = parse_date(d.get('ts'))
+        
+        if (year > start_year or
+           (year == start_year and month >= start_month)):
+
+            key = "%04d-%02d" % (year, month)
+
+            if not key in months:
+                months.update({key: 0}) 
+            
+            months[key] += d.get('ms_played')
+
+    print("PLAYTIME SINCE %02d.%04d\n" % (start_month, start_year))
+    for m in sorted(months):
+       
+        print("%s: " % m, end ="")
+        playtime = months.get(m) / (1000*60*60)
+
+        for i in range (0, round(playtime)):
+            print("#", end="")  
+        print(" (%.1fh)" % playtime)
+    print()
+
+def print_artist_playstats_since(data, start_year, start_month, start_day, list_length):
+
     artist_list = []
     song_list = []
-    start_year = 2018
-    start_month = 2
-    start_day = 1
 
     for d in data:
-        year,month,day,hh,mm,ss = parse_date(d.get('ts'))
+            year,month,day,hh,mm,ss = parse_date(d.get('ts'))
 
-        if ((year > start_year) or 
-            (year == start_year and month > start_month) or 
-            (year == start_year and month == start_month and day >= start_day)):
-            
-            artist_name = d.get('master_metadata_album_artist_name')
-            
-            if not artist_name == None:
-                artist = get_artist(artist_list, artist_name)
-                artist.playtime += d.get('ms_played')
-                artist.playcount += 1
+            if ((year > start_year) or 
+                (year == start_year and month > start_month) or 
+                (year == start_year and month == start_month and day >= start_day)):
+                
+                artist_name = d.get('master_metadata_album_artist_name')
+                
+                if not artist_name == None:
+                    artist = get_artist(artist_list, artist_name)
+                    artist.playtime += d.get('ms_played')
+                    artist.playcount += 1
 
-            song_name = d.get('master_metadata_track_name')
-            
-            if not song_name == None:
-                song = get_song(song_list, song_name, artist_name)
-                song.playtime += d.get('ms_played')
-                song.playcount += 1
+                song_name = d.get('master_metadata_track_name')
+                
+                if not song_name == None:
+                    song = get_song(song_list, song_name, artist_name)
+                    song.playtime += d.get('ms_played')
+                    song.playcount += 1
 
 
     artist_list.sort(key=lambda d: d.playtime, reverse=True)
@@ -63,10 +86,15 @@ def main():
     for a in artist_list:
         a.print(i, song_list)
         i += 1
-        if i == 99:
+        if i == list_length: 
             break
 
-
+def parse_date(ts):
+        year,month,day = ts.split("-")
+        time = day.split("T")[1].replace('Z', '', 1)
+        day = day.split("T")[0]
+        hh,mm,ss = time.split(":")
+        return int(year), int(month), int(day), int(hh), int(mm), int(ss)
 
 
 def get_artist(artist_list, name):
@@ -119,7 +147,6 @@ class song:
 
 
         print("%4.0f %5d  %s" %  (self.playtime / 60000, self.playcount, self.name))
-
 
 
 if __name__=="__main__":
