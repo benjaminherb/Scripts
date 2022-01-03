@@ -1,5 +1,13 @@
 import json
 
+
+def parse_date(ts):
+        year,month,day = ts.split("-")
+        time = day.split("T")[1].replace('Z', '', 1)
+        day = day.split("T")[0]
+        hh,mm,ss = time.split(":")
+        return int(year), int(month), int(day), int(hh), int(mm), int(ss)
+
 def main():
     
     data = []
@@ -10,21 +18,17 @@ def main():
 
     artist_list = []
     song_list = []
-    
+    start_year = 2018
+    start_month = 2
+    start_day = 1
 
     for d in data:
-        ts = d.get('ts')
-        year,month,day = ts.split("-")
-        time = day.split("T")[1].replace('Z', '', 1)
-        day = day.split("T")[0]
+        year,month,day,hh,mm,ss = parse_date(d.get('ts'))
 
-        hh,mm,ss = time.split(":")
-
-        print("%s %s %s %s %s %s " % (year,month,day,hh,mm,ss))
-        
-        print(ts)
-        years = { 2021, 2020, 2019 }
-        if any(str(year) in ts for year in years):
+        if ((year > start_year) or 
+            (year == start_year and month > start_month) or 
+            (year == start_year and month == start_month and day >= start_day)):
+            
             artist_name = d.get('master_metadata_album_artist_name')
             
             if not artist_name == None:
@@ -53,7 +57,8 @@ def main():
         # i += 1
     
     i = 0
-    print("\nMOST PLAYED ARTISTS BY PLAYTIME")
+
+    print("\nMOST PLAYED ARTISTS BY PLAYTIME (SINCE %02d.%02d.%04d)" % (start_day, start_month, start_year))
     print("\n%-4s%4s %5s  %-20s %s" % ("#", "TIME", "PLAYS", "ARTIST NAME", "MOST PLAYED SONG"))
     for a in artist_list:
         a.print(i, song_list)
