@@ -10,10 +10,12 @@ def main():
 
     artist_list = []
     song_list = []
+    
 
     for d in data:
         ts = d.get('ts')
-        if ("2021" in ts) or ("2021" in ts) or ("2020" in ts) or ("2021" in ts):
+        years = { 2021, 2020, 2019 }
+        if any(str(year) in ts for year in years):
             artist_name = d.get('master_metadata_album_artist_name')
             
             if not artist_name == None:
