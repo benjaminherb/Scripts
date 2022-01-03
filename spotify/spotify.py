@@ -14,6 +14,15 @@ def main():
 
     for d in data:
         ts = d.get('ts')
+        year,month,day = ts.split("-")
+        time = day.split("T")[1].replace('Z', '', 1)
+        day = day.split("T")[0]
+
+        hh,mm,ss = time.split(":")
+
+        print("%s %s %s %s %s %s " % (year,month,day,hh,mm,ss))
+        
+        print(ts)
         years = { 2021, 2020, 2019 }
         if any(str(year) in ts for year in years):
             artist_name = d.get('master_metadata_album_artist_name')
