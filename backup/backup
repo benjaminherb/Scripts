@@ -8,6 +8,7 @@ NORMAL=$(tput sgr0)
 script_dir="$(cd "$(dirname "$(readlink -f ${BASH_SOURCE[0]})")" &>/dev/null && pwd)"
 backup_dir=/run/media/ben/Backup
 
+
 token="1369429125:AAHqxnFKjiHv34-Elh4cFAY98LRGH822jcQ"
 chat="668523255"
 
