@@ -1,5 +1,5 @@
+#!/bin/python
 import json
-
 
 def main():
     
@@ -21,8 +21,8 @@ def get_months(data, start_year, start_month):
         year,month,day,hh,mm,ss = parse_date(d.get('ts'))
         
         if (year > start_year or
-           (year == start_year and month >= start_month)):
-            
+            (year == start_year and month >= start_month)):
+            print("R")            
 
 
 def print_playtime_month(data, start_year, start_month):
