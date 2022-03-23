@@ -1,0 +1,12 @@
+[Unit]
+Description=Timer for Snapshot Management
+
+[Timer]
+OnBootSec=0min
+OnCalendar=daily
+AccuracySec=24h
+Persistance=true
+Unit=/home/ben/Code/scripts/snapshot_management.sh
+
+[Install]
+WantedBy=default.target
