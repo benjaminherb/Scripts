@@ -13,7 +13,7 @@ from datetime import datetime
 import argparse
 
 def main(): 
-    data_dir, database, user, password = parse_arguments()
+    data_dir, database, table, user, password = parse_arguments()
 
     conn = psycopg2.connect(
         database=database,
@@ -92,6 +92,8 @@ def parse_arguments():
        help="Data Directory with Spotify .json Files")
     parser.add_argument("-d", "--database", required=True,
        help="Database Name")
+    parser.add_argument("-t", "--table", required=True,
+       help="Table Name")
     parser.add_argument("-u", "--user", required=True,
        help="User to access the database")
     parser.add_argument("-p", "--password", required=True,
@@ -100,10 +102,11 @@ def parse_arguments():
     args = vars(parser.parse_args())
     data_dir = args['spotify-data']
     database = args['database']
+    table = args['table']
     user = args['user']
     password = args['password']
 
-    return data_dir, database, user, password 
+    return data_dir, database, table, user, password 
 
 
 if __name__=="__main__":
