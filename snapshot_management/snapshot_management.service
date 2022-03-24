@@ -1,0 +1,7 @@
+[Unit]
+Description=Creates Snapshots of Home and Root
+
+[Service]
+ExecStart=/home/ben/Code/scripts/snapshot_management/snapshot_management.sh
+User=root
+

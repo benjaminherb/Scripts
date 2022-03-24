@@ -1,0 +1,12 @@
+[Unit]
+Description=Timer for Snapshot Management
+
+[Timer]
+OnBootSec=0min
+OnCalendar=daily
+AccuracySec=24h
+Persistent=true
+Unit=snapshot_management.service
+
+[Install]
+WantedBy=default.target
