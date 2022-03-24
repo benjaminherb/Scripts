@@ -11,6 +11,8 @@ import json
 import psycopg2
 from datetime import datetime
 import argparse
+import os
+import re
 
 def main(): 
     data_dir, database, table, user, password = parse_arguments()
@@ -22,15 +24,27 @@ def main():
         # host='localhost',
         # port='5432'
     )
+   
+    for dir in os.listdir(data_dir):
+        print(dir)
+
+    exit()
+    import_extended_data(conn, data_dir, table)
+    import_data(conn, data_dir, table)
+
+
+
+def import_extended_data(conn, data_dir, table):
+    
+    cursor = conn.cursor()
 
     print("IMPORTING EXTENDED DATA")
 
     data = []
     for i in 0,1,2,3,4:
-        with open('data/endsong_' + str(i) + '.json') as f:
+        with open(f'{data_dir}/EXTENDED/endsong_' + str(i) + '.json') as f:
             data += json.load(f)
 
-    cursor = conn.cursor()
 
     for i,d in enumerate(data):
         endTime = d.get('ts')
@@ -40,21 +54,30 @@ def main():
         print(i, end='\r')
 
         try:
-            cursor.execute("INSERT INTO streams VALUES( %s, %s, %s, %s)", (
+            cursor.execute(f"INSERT INTO {table} VALUES( %s, %s, %s, %s)", (
             endTime, msPlayed, trackName, artistName))
             conn.commit()
         except Exception as e:
             print(e)
             print(d)
             exit()
+        
+    conn.close()
+
+
+def import_data(conn, data_dir, table):
+
+    cursor = conn.cursor()
 
     print("IMPORTING DATA")
+    
+    data = []
 
     for i in 0,1:
         with open('data/StreamingHistory' + str(i) + '.json') as f:
             data += json.load(f)
 
-    cursor.execute("""SELECT endTime FROM streams ORDER BY endTime DESC LIMIT 1;""")
+    cursor.execute(f"""SELECT endTime FROM {table} ORDER BY endTime DESC LIMIT 1;""")
     newest_entry = cursor.fetchall()[0][0]
     print(newest_entry)
 
@@ -80,10 +103,13 @@ def main():
                 print(d)
                 exit()
 
-    print()
-
     conn.close()
 
+def get_extended_files(dir):
+    for root, dirs, files in os.walk(dir):
+      for file in files:
+        if regex.match(file):
+           print(file)
 
 def parse_arguments():
     
@@ -100,7 +126,8 @@ def parse_arguments():
        help="Password to access the database")
     
     args = vars(parser.parse_args())
-    data_dir = args['spotify-data']
+
+    data_dir = args['spotify_data']
     database = args['database']
     table = args['table']
     user = args['user']
