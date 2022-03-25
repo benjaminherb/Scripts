@@ -1,4 +1,6 @@
 #!/bin/sh
+home_retention=14
+root_retention=7
 
 date=$(date +"%Y%m%d_%H%m")
 
@@ -10,7 +12,7 @@ sudo btrfs subvolume snapshot -r /home ${home_snap_dir}${date}_home
 
 
 home_snap_count=$(ls $home_snap_dir | wc -l)
-while [ $home_snap_count -gt 10 ]; do
+while [ $home_snap_count -gt $home_retention ]; do
     snap_to_delete=$(ls -1 $home_snap_dir | head -n 1)
     sudo btrfs subvolume delete ${home_snap_dir}$snap_to_delete
     home_snap_count=$(ls $home_snap_dir | wc -l)
@@ -19,7 +21,7 @@ done
 
 
 root_snap_count=$(ls $root_snap_dir | wc -l)
-while [ $root_snap_count -gt 10 ]; do
+while [ $root_snap_count -gt $root_retention ]; do
     snap_to_delete=$(ls -1 $root_snap_dir | head -n 1)
     sudo btrfs subvolume delete ${root_snap_dir}$snap_to_delete
     home_snap_count=$(ls $root_snap_dir | wc -l)
