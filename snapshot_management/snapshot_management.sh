@@ -24,6 +24,6 @@ root_snap_count=$(ls $root_snap_dir | wc -l)
 while [ $root_snap_count -gt $root_retention ]; do
     snap_to_delete=$(ls -1 $root_snap_dir | head -n 1)
     sudo btrfs subvolume delete ${root_snap_dir}$snap_to_delete
-    home_snap_count=$(ls $root_snap_dir | wc -l)
+    root_snap_count=$(ls $root_snap_dir | wc -l)
     echo "REMOVED ${root_snap_dir}${snap_to_delete} - ${root_snap_count} SNAPSHOTS LEFT!"
 done
