@@ -24,26 +24,51 @@ def main():
         # host='localhost',
         # port='5432'
     )
-   
-    for dir in os.listdir(data_dir):
-        print(dir)
+    
+    data_reg = re.compile("^StreamingHistory[0-9]{1,2}.json$")
+    data_ex_reg = re.compile("^endsong_[0-9]{1,2].json$")
 
-    exit()
-    import_extended_data(conn, data_dir, table)
-    import_data(conn, data_dir, table)
+    json = get_json_files(data_dir, data_reg)
+    json_ex = get_json_files(data_dir, data_ex_reg)
+
+    print("EXTENDED DATA: " + str(json_ex))
+    print("DATA: " + str(json))
+
+    ## Import extended data
+    if not len(json_ex) == 0:
+        while True:
+            entry = input("ADD EXTENDED DATA AND DROP EXISTING TABLE? (y/n)")
+            if entry == 'y' or entry == 'n':
+                break
+        
+        if entry == 'y':
+            for j in json_ex:
+                import_extended_data(conn, j, data_dir, table)
+
+    ## Import data if it is newer
+    for j in json:
+        import_data(conn, data_dir, table)
 
 
+def drop_table(conn, table):
+    cursor = conn.cursor()
 
-def import_extended_data(conn, data_dir, table):
+    try:
+        cursor.execute(f"DROP TABLE IF EXISTS{table};")
+        conn.commit()
+    except Exception as e:
+        print(e)
+
+
+def import_extended_data(conn, file, data_dir, table):
     
     cursor = conn.cursor()
 
     print("IMPORTING EXTENDED DATA")
 
     data = []
-    for i in 0,1,2,3,4:
-        with open(f'{data_dir}/EXTENDED/endsong_' + str(i) + '.json') as f:
-            data += json.load(f)
+    with open(f'{data_dir}/{file}') as f:
+        data += json.load(f)
 
 
     for i,d in enumerate(data):
@@ -65,7 +90,7 @@ def import_extended_data(conn, data_dir, table):
     conn.close()
 
 
-def import_data(conn, data_dir, table):
+def import_data(conn, file, data_dir, table):
 
     cursor = conn.cursor()
 
@@ -73,9 +98,8 @@ def import_data(conn, data_dir, table):
     
     data = []
 
-    for i in 0,1:
-        with open('data/StreamingHistory' + str(i) + '.json') as f:
-            data += json.load(f)
+    with open(f'{data_dir}/{file}') as f:
+        data += json.load(f)
 
     cursor.execute(f"""SELECT endTime FROM {table} ORDER BY endTime DESC LIMIT 1;""")
     newest_entry = cursor.fetchall()[0][0]
@@ -105,11 +129,15 @@ def import_data(conn, data_dir, table):
 
     conn.close()
 
-def get_extended_files(dir):
+
+def get_json_files(dir, regex):
+    data = []
     for root, dirs, files in os.walk(dir):
-      for file in files:
-        if regex.match(file):
-           print(file)
+        for file in files:
+            if regex.match(file):
+                data.append(file)
+    return data
+
 
 def parse_arguments():
     
