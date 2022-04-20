@@ -115,9 +115,8 @@ def import_data(conn, file, data_dir, table):
 
     cursor.execute(f"""SELECT endTime FROM {table} ORDER BY endTime DESC LIMIT 1;""")
     newest_entry = cursor.fetchall()[0][0]
-    print(newest_entry)
+    print(f"NEWEST TABLE ENTRY: {newest_entry}")
 
-    print("IMPORTING DATA")
     for i,d in enumerate(data):
         endTime = d.get('endTime') + ':00'
         msPlayed = d.get('msPlayed')
@@ -126,9 +125,7 @@ def import_data(conn, file, data_dir, table):
         print(i, end='\r')
         
         endTime_comp = datetime.strptime(endTime, '%Y-%m-%d %H:%M:%S')
-
         if (endTime_comp > newest_entry):
-            print(str(endTime_comp) + " is newer compared to " + str(newest_entry))
             try:
                 cursor.execute("INSERT INTO streams VALUES( %s, %s, %s, %s)", (
                 endTime, msPlayed, trackName, artistName))
@@ -138,7 +135,6 @@ def import_data(conn, file, data_dir, table):
                 print(e)
                 print(d)
                 exit()
-
 
 
 def get_json_files(dir, regex):
