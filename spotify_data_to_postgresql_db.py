@@ -42,6 +42,8 @@ def main():
                 break
         
         if entry == 'y':
+            drop_table(conn, table)
+            create_table(conn, table)
             for j in json_ex:
                 import_extended_data(conn, j, data_dir, table)
 
@@ -50,14 +52,25 @@ def main():
         import_data(conn, j, data_dir, table)
 
 
-def drop_table(conn, table):
-    cursor = conn.cursor()
+def create_table(conn, table):
+    print(f"CREATING NEW TABLE {table}")
+    cursor = conn.connect()
+    try:
+        cursor.execute(f"CREATE TABLE {table}(endTime date, msPlayed numeric(16,0), trackName varchar(512), artistName varchar(512));")
+        conn.commit()
+    except Exception as e:
+        print(e)
+        exit()
 
+def drop_table(conn, table):
+    print(f"DROPPING TABLE {table}")
+    cursor = conn.cursor()
     try:
         cursor.execute(f"DROP TABLE IF EXISTS{table};")
         conn.commit()
     except Exception as e:
         print(e)
+        exit()
 
 
 def import_extended_data(conn, file, data_dir, table):
