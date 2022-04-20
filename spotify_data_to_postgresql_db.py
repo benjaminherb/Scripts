@@ -47,7 +47,7 @@ def main():
 
     ## Import data if it is newer
     for j in json:
-        import_data(conn, data_dir, table)
+        import_data(conn, j, data_dir, table)
 
 
 def drop_table(conn, table):
