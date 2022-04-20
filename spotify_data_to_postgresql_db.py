@@ -50,7 +50,8 @@ def main():
     ## Import data if it is newer
     for j in json:
         import_data(conn, j, data_dir, table)
-
+    
+    conn.close()
 
 def create_table(conn, table):
     print(f"CREATING NEW TABLE {table}")
@@ -100,8 +101,6 @@ def import_extended_data(conn, file, data_dir, table):
             print(d)
             exit()
         
-    conn.close()
-
 
 def import_data(conn, file, data_dir, table):
 
@@ -140,7 +139,6 @@ def import_data(conn, file, data_dir, table):
                 print(d)
                 exit()
 
-    conn.close()
 
 
 def get_json_files(dir, regex):
