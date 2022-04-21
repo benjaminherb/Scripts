@@ -1,5 +1,9 @@
 # Scripts
 
+## Spotify Data to Postgresql Database
+Automatic import of json spotify (my data & my data extended). Allows the creation of a fitting table and updates to an existing table with new data.
+
+
 ## Snapshot Management
 Shell Script automatic btrfs snapshots (with a retention policy for automatic cleanup). Uses systemd for scheduling
 
