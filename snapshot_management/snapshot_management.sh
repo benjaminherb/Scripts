@@ -1,6 +1,6 @@
 #!/bin/sh
 
-date=$(date +"%Y%m%d_%H%m")
+date=$(date +"%Y%m%d_%H%M")
 
 home_snap_dir="/.snapshots/home/"
 root_snap_dir="/.snapshots/root/"
