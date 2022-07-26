@@ -1,0 +1,50 @@
+# Detect recipient before forwarding, not flawless but handles common scenarios.
+
+if header :regex "X-Forwarded-For" "^([^ ]+)" {
+  set "tobeforeforward" "${1}"; 
+} elsif header :matches "X-Original-Delivered-To" "*" {
+  set "tobeforeforward" "${1}"; 
+} elsif header :matches "X-Delivered-To" "*" {
+  set "tobeforeforward" "${1}";
+}
+
+# enable to add a header to help debug if you'd like, ensure this is before any other Sieve filter so you don't end up forking messages
+#addheader :last "X-ToBeforeForward" "${tobeforeforward}";
+
+# Construct a folder name by replacing "." with "", handling up to 4 parts in the user and domain
+#
+# Skip the weird timelimited.fastmail.com addresses that Fastmail uses to send mail to subscribers
+#
+# This also skips your primary email, can remove that to later those as well
+# 
+# For me all emails go get labeled with "To<email>"
+#
+
+if allof( 
+  not string :is "${tobeforeforward}" "<your primary email>", 
+  not string :matches "${tobeforeforward}" "*@timelimited.fastmail.com"
+  )
+{
+  if string :regex "${tobeforeforward}" "^([^.]*)\\.?([^.]*)\\.?([^.]*)\\.?([^.]*)@([^.]*)\\.?([^.]*)\\.?([^.]*)\\.?([^.]*)$"
+  { 
+    if not string :is "${1}" "" { set :lower "user1" "${1}"; }
+    if not string :is "${2}" "" { set :lower "user2" "^${2}"; } 
+    if not string :is "${3}" "" { set :lower "user3" "^${3}"; }
+    if not string :is "${4}" "" { set :lower "user4" "^${4}"; }
+
+    if not string :is "${5}" "" { set :lower "domain1" "${5}"; }
+    if not string :is "${6}" "" { set :lower "domain2" "^${6}"; }
+    if not string :is "${7}" "" { set :lower "domain3" "^${7}"; }
+    if not string :is "${8}" "" { set :lower "domain4" "^${8}"; }
+
+    set "user" "${user1}${user2}${user3}${user4}";
+    set "domain" "${domain1}${domain2}${domain3}${domain4}";
+    set "tofolder" "${user}@${domain}";
+
+    #addheader :last "X-ToFolder" "INBOX.To.${tofolder}";
+  }
+}
+
+if not string :is "${tofolder}" "" {
+  fileinto :create :copy "INBOX.To.${tofolder}"; 
+}
