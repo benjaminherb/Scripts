@@ -1,7 +1,11 @@
 [Unit]
 Description=Creates Snapshots of Home and Root
+Wants=snapshot_management.timer
 
 [Service]
-ExecStart=/home/ben/Code/scripts/snapshot_management/snapshot_management.sh
+Type=oneshot
+ExecStart=/bin/bash -c /home/ben/Code/scripts/snapshot_management/snapshot_management.sh
 User=root
 
+[Install]
+WantedBy=multi-user.target
